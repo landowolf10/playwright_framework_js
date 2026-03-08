@@ -105,8 +105,6 @@ You can access the latest report dashboard here:
 
 https://landowolf10.github.io/playwright_framework_js/
 
-Then click **"Open report"** in the **Last report** row.
-
 **You need to wait a few seconds so last report is loaded**
 
 ------------------------------------------------------------------------
