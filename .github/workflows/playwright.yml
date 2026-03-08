@@ -123,3 +123,6 @@ jobs:
           publish_branch: gh-pages
           keep_files: true
           commit_message: "Update Playwright reports ${{ env.TIMESTAMP }}"
+          
+      - name: Debug structure
+        run: ls -R reports-history

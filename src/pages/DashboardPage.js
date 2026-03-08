@@ -2,12 +2,15 @@ import { DashboardLocators } from "../locators/dashboard_locators.js";
 import { BasePage } from "../helpers/BasePage.js";
 import { logger } from "../helpers/logger.js";
 
+//LoginPage extends BasePage to use functionalities.
 export class DashboardPage extends BasePage {
   constructor(page) {
     super(page);
     this.dashboardLocators = new DashboardLocators();
   }
 
+  //Gets all the products of the main page
+  //by using the getAllElements function from BasePage.
   async getAllProducts() {
     const products = [];
     const items = await this.getAllElements(this.dashboardLocators.allProducts);
