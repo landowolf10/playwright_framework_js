@@ -50,17 +50,14 @@ jobs:
         run: |
           TIMESTAMP=$(date +"%Y-%m-%d_%H-%M-%S")
 
-          # Crear carpeta historial
           mkdir -p "reports-history/$TIMESTAMP"
 
-          # Copiar el reporte Allure generado
           if [ -d "reports/allure-report" ]; then
             cp -r reports/allure-report/* "reports-history/$TIMESTAMP/"
           else
             echo "No se encontró reports/allure-report"
           fi
 
-          # Actualizar latest
           rm -rf reports-history/latest
           mkdir -p reports-history/latest
 
