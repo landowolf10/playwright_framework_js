@@ -74,7 +74,6 @@ Before(async function (scenario) {
     this.commonPage = this.pageObjectManager.getCommonPage();
     this.loginPage = this.pageObjectManager.getLoginPage();
     this.dashboardPage = this.pageObjectManager.getDashBoardPage();
-    this.checkoutPage = this.pageObjectManager.getCheckoutPage();
     this.cartPage = this.pageObjectManager.getCartPage();
 
     allure.label("browser", browserName);

@@ -1,7 +1,6 @@
 import { LoginPage } from "./LoginPage.js";
 import { CommonPage } from "./CommonPage.js";
 import { DashboardPage } from "./DashboardPage.js";
-import { CheckoutPage } from "./CheckoutPage.js";
 import { CartPage } from "./CartPage.js";
 
 /**
@@ -23,7 +22,6 @@ export class PageObjectManager {
         this._loginPage = null;
         this._commonPage = null;
         this._dashboardPage = null;
-        this._checkoutPage = null;
         this._cartPage = null;
     }
 
@@ -58,13 +56,5 @@ export class PageObjectManager {
         }
 
         return this._cartPage;
-    }
-
-    getCheckoutPage() {
-        if (!this._checkoutPage) {
-            this._checkoutPage = new CheckoutPage(this.page);
-        }
-
-        return this._checkoutPage;
     }
 }
