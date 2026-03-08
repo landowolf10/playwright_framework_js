@@ -1,19 +1,118 @@
-Playwright framework developed with JavaScript and Cucumber for BDD implementing the Page Object Model and Page Object Manager design Patterns.
+# Playwright Automation Framework (JavaScript + Cucumber)
 
-Before executing run: npm install
+Automation testing framework built with **Playwright**, **JavaScript**,
+and **Cucumber** for **BDD**, implementing the **Page Object Model
+(POM)** and **Page Object Manager** design patterns.
 
-To execute:
-1. Execute only on chromium (headless): npm run test:chromium
-2. Execute only on firefox (headless): npm run test:firefox
-3. Execute only on webkit (headless): npm run test:webkit
-4. Execute only on chromium (headed mode): npm run test:chromium:headed
-5. Execute only on firefox (headed mode): npm run test:firefox:headed
-6. Execute only on webkit (headed mode): npm run test:webkit:headed
-7. Execute on chromium, firefox and webkit in parallel (headless): npm run testAll:parallel
-8. Execute on chromium, firefox and webkit in parallel (headed mode): npm run testAll:parallel:headed
+------------------------------------------------------------------------
 
-To generate Allure report:
-1. Generate report: npm run allure:generate
-2. To open report: npm run allure:open
+## Installation
 
-This framework is also integrated with CI/CD pipeline (Github Actions) where all the scenarios are execute after each push to main branch and generates and uploads the Allure report to Github Pages.
+Before executing the tests, install the dependencies:
+
+``` bash
+npm install
+```
+
+------------------------------------------------------------------------
+
+## Test Execution
+
+### Headless Mode
+
+1.  Run tests only on **Chromium**
+
+``` bash
+npm run test:chromium
+```
+
+2.  Run tests only on **Firefox**
+
+``` bash
+npm run test:firefox
+```
+
+3.  Run tests only on **WebKit**
+
+``` bash
+npm run test:webkit
+```
+
+4.  Run tests on **Chromium, Firefox, and WebKit in parallel**
+
+``` bash
+npm run testAll:parallel
+```
+
+------------------------------------------------------------------------
+
+### Headed Mode
+
+5.  Run tests only on **Chromium (headed)**
+
+``` bash
+npm run test:chromium:headed
+```
+
+6.  Run tests only on **Firefox (headed)**
+
+``` bash
+npm run test:firefox:headed
+```
+
+7.  Run tests only on **WebKit (headed)**
+
+``` bash
+npm run test:webkit:headed
+```
+
+8.  Run tests on **Chromium, Firefox, and WebKit in parallel (headed)**
+
+``` bash
+npm run testAll:parallel:headed
+```
+
+------------------------------------------------------------------------
+
+## Allure Report
+
+Generate and visualize the Allure report.
+
+1.  Generate report
+
+``` bash
+npm run allure:generate
+```
+
+2.  Open report
+
+``` bash
+npm run allure:open
+```
+
+------------------------------------------------------------------------
+
+## CI/CD Integration
+
+This framework is integrated with a **GitHub Actions CI/CD pipeline**.
+
+-   Tests are executed automatically **after every push to the `main`
+    branch**.
+-   After execution, an **Allure report is generated and published to
+    GitHub Pages**.
+
+You can access the latest report dashboard here:
+
+https://landowolf10.github.io/playwright_framework_js/
+
+Then click **"Open report"** in the **Last report** row.
+
+------------------------------------------------------------------------
+
+## Important Note
+
+The `.env` file was added **only for demonstration purposes** in this
+repository.
+
+In real-world projects, **`.env` files should never be committed to the
+repository** and should always be included in `.gitignore`.
