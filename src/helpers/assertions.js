@@ -1,6 +1,8 @@
 import { expect } from "@playwright/test";
 import { TIMEOUTS } from "../config/constants.js";
 
+//Basic custom assertions that can be used through all the framework.
+
 export async function assertVisible(page, locator, name, timeout = TIMEOUTS.short) {
   try {
     const element =

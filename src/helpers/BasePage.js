@@ -7,6 +7,7 @@ export class BasePage {
     this.page = page;
   }
 
+  //Returns a specific locator to handle it.
   getLocator(locator) {
     if (typeof locator === "string") {
       return this.page.locator(locator);
@@ -15,6 +16,7 @@ export class BasePage {
     return locator;
   }
 
+  //Waits until an element/locator is visible given an amount of time.
   async waitForVisible(locator, timeout = TIMEOUTS.short) {
     const element = this.getLocator(locator);
 
@@ -26,6 +28,7 @@ export class BasePage {
     });
   }
 
+   //Waits until an element/locator is hidden given an amount of time.
   async waitForHidden(locator, timeout = TIMEOUTS.short) {
     const element = this.getLocator(locator);
 
@@ -38,16 +41,16 @@ export class BasePage {
 
   }
 
+   //Waits until an element/locator is enabled given an amount of time.
   async waitForEnabled(locator, timeout = TIMEOUTS.short) {
-
     const element = this.getLocator(locator);
 
     logger.info(`Waiting for element enabled: ${locator}`);
 
     await expect(element).toBeEnabled({ timeout });
-
   }
 
+  //Returns all the elements of a given locator given an amount of time.
   async getAllElements(locator, timeout = TIMEOUTS.short) {
     const element = this.getLocator(locator);
 
@@ -59,6 +62,7 @@ export class BasePage {
     return await element.all();
   }
 
+  //Returns a single element of a given locator given an amount of time.
   async getElement(locator, timeout = TIMEOUTS.short) {
     const element = this.getLocator(locator);
 
@@ -70,8 +74,8 @@ export class BasePage {
     return await element;
   }
 
+  //Waits for an element/locator to be visible given an amount of time and sends text to it if found. 
   async writeText(locator, text, timeout = TIMEOUTS.short) {
-
     const element = this.getLocator(locator);
 
     logger.info(`Writing text into element: ${locator}`);
@@ -85,8 +89,8 @@ export class BasePage {
 
   }
 
+  //Waits for an element/locator to be visible given an amount of time and clicks it if found. 
   async clickElement(locator, timeout = TIMEOUTS.short) {
-
     const element = this.getLocator(locator);
 
     logger.info(`Clicking element: ${locator}`);
@@ -100,6 +104,8 @@ export class BasePage {
 
   }
 
+  //Waits for an element/locator to be visible given an amount of time 
+  // and gets its text if found or returns "" if not found. 
   async getElementText(locator, timeout = TIMEOUTS.short) {
     const element = this.getLocator(locator);
 
@@ -115,8 +121,9 @@ export class BasePage {
     return text ?? "";
   }
 
+  ////Waits for a dropdown to be visible given an amount of time 
+  // and handles dropdown (selects option from dropdown).
   async selectDropdownOption(locator, option, timeout = TIMEOUTS.short) {
-
     const element = this.getLocator(locator);
 
     logger.info(`Selecting dropdown option: ${option}`);
@@ -127,7 +134,6 @@ export class BasePage {
     });
 
     await element.selectOption(option);
-
   }
 
   async scrollToElement(locator) {

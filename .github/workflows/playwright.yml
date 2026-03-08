@@ -114,12 +114,11 @@ jobs:
           </html>
           EOF
 
-      - name: Upload report to GitHub Pages
+      - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         if: always()
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: reports-history
           publish_branch: gh-pages
-          keep_files: true
-          commit_message: "Update Playwright reports ${{ env.TIMESTAMP }}"
+          force_orphan: true

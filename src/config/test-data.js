@@ -1,3 +1,4 @@
+//Test data to use in the login, values comming from .env file.
 export const users = {
   standard: { 
     username: process.env.STANDARD_USER_USERNAME,
