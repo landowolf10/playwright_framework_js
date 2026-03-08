@@ -1,77 +1,63 @@
 import { DashboardLocators } from "../locators/dashboard_locators.js";
 import { BasePage } from "../helpers/BasePage.js";
+import { logger } from "../helpers/logger.js";
 
 export class DashboardPage extends BasePage {
   constructor(page) {
     super(page);
     this.dashboardLocators = new DashboardLocators();
-    this.selectedItemPrices = [];
   }
 
-  async sortWithDropDown(option) {
-    await this.selectDropdownOption(this.dashboardLocators.sortDropDown, option);
-  }
+  async getAllProducts() {
+    const products = [];
+    const items = await this.getAllElements(this.dashboardLocators.allProducts);
 
-  async addProduct() {
-    const addToCartButtons = await this.getAllElements(this.dashboardLocators.addToCartButton);
-    const prices = await this.getAllPrices();
+    for (const item of items) {
+      const name = await this.getElementText(
+        item.locator(this.dashboardLocators.productName)
+      );
 
-    for (let i = 0; i < prices.length; i++) {
-      const currentPrice = prices[i];
-      const addToCartButton = addToCartButtons[i];
+      const priceText = await this.getElementText(
+        item.locator(this.dashboardLocators.productPrice)
+      );
 
-      if (currentPrice !== undefined && addToCartButton !== undefined && currentPrice < 20) {
-        await this.clickElement(addToCartButton);
-        prices.splice(i, 1);
-        this.selectedItemPrices.splice(i, 1);
-        addToCartButtons.splice(i, 1);
+      const price = parseFloat(priceText.replace("$", "").trim());
 
-        this.selectedItemPrices.push(currentPrice);
-
-        break;
-      }
+      products.push({
+        name: name.trim(),
+        price: price
+      });
     }
 
-    console.log("Selected item prices: ", this.selectedItemPrices);
+    logger.info("All products:", products);
+
+    return products;
   }
 
-  async getExpectedSubTotal() {
-    return await this.getSubTotalSum();
-  }
+  async addRandomProductToCart() {
+    const addToCartButtons = await this.getAllElements(this.dashboardLocators.allProducts);
 
-  async getAllPrices() {
-    const elements = await this.getAllElements(this.dashboardLocators.productPrice);
-    const prices = [];
-
-    for (const element of elements) {
-      const priceText = await this.getElementText(element);
-
-      if (priceText) {
-        const priceValue = parseFloat(priceText.replace("$", "").trim());
-
-        if (!isNaN(priceValue)) {
-          prices.push(priceValue);
-        } else {
-          console.warn("Could not parse price text:", priceText);
-        }
-      } else {
-        console.warn("Price text is null for element:", element);
-      }
+    if (addToCartButtons.length === 0) {
+      throw new Error("No 'Add to cart' buttons found");
     }
 
-    return prices;
-  }
+    const randomIndex = Math.floor(Math.random() * addToCartButtons.length);
+    const item = addToCartButtons[randomIndex];
 
-  async getSubTotalSum() {
-    let sum = 0;
+    const name = await this.getElementText(item.locator(this.dashboardLocators.productName));
+    const priceText = await this.getElementText(item.locator(this.dashboardLocators.productPrice));
+    const button = item.locator(this.dashboardLocators.addToCartButton);
 
-    console.log("All prices: ", this.selectedItemPrices);
+    const price = parseFloat(priceText.replace("$", "").trim());
 
-    for (const selectedItemPrice of this.selectedItemPrices)
-      sum += selectedItemPrice;
+    await this.clickElement(button);
 
-    console.log("Sum: ", sum);
+    console.log(`Added product: ${name} | price: ${price}`);
 
-    return "Item total: $" + sum;
+    return {
+      name,
+      price,
+      button
+    };
   }
 }

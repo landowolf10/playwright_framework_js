@@ -7,12 +7,19 @@
   "scripts": {
     "clean:allure": "rimraf reports/allure-results reports/allure-report reports/cucumber-report.html reports/videos",
 
-    "test:chromium": "cross-env BROWSER=chromium cucumber-js",
-    "test:firefox": "cross-env BROWSER=firefox cucumber-js",
-    "test:webkit": "cross-env BROWSER=webkit cucumber-js",
+    "test:chromium": "cross-env BROWSER=chromium cucumber-js --parallel 3",
+    "test:firefox": "cross-env BROWSER=firefox cucumber-js --parallel 3",
+    "test:webkit": "cross-env BROWSER=webkit cucumber-js --parallel 3",
 
-    "test:parallel": "npm-run-all clean:allure --parallel test:chromium test:firefox test:webkit",
+    "test:chromium:headed": "cross-env BROWSER=chromium HEADLESS=false cucumber-js --parallel 3",
+    "test:firefox:headed": "cross-env BROWSER=firefox HEADLESS=false cucumber-js --parallel 3",
+    "test:webkit:headed": "cross-env BROWSER=webkit HEADLESS=false cucumber-js --parallel 3",
+
+    "testAll:parallel": "npm-run-all clean:allure --parallel test:chromium test:firefox test:webkit",
+    "testAll:parallel:headed": "npm-run-all clean:allure --parallel test:chromium test:firefox test:webkit:headed",
+
     "test:feature": "npm-run-all clean:allure --parallel test:chromium test:firefox test:webkit --",
+    "test:feature:headed": "npm-run-all clean:allure --parallel test:chromium test:firefox test:webkit:headed --",
 
     "allure:generate": "allure generate reports/allure-results --clean -o reports/allure-report",
 

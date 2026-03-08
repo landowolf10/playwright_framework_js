@@ -1,12 +1,14 @@
 export class DashboardLocators {
   constructor() {
     // Static locators
-    this.productPrice = "//div[@class='inventory_item_price']";
+    this.allProducts = ".inventory_item";
+    this.productName = ".inventory_item_name";
+    this.productPrice = ".inventory_item_price";
     this.sortDropDown = "//select[@data-test='product-sort-container']";
     this.cartIcon = "//a[@class='shopping_cart_link']";
 
     // Example button locator
-    this.addToCartButton = "//button[normalize-space()='Add to cart']";
+    this.addToCartButton = ".btn_inventory";
   }
 
   // Dynamic locator example

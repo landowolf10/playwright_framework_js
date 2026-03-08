@@ -8,6 +8,14 @@ export class CheckoutPage extends BasePage {
     this.checkoutLocators = new CheckoutLocators(page);
   }
 
+  async proceedWithCheckout(firstName, lastName, zipCode) {
+    await this.clickElement(this.checkoutLocators.checkoutButton);
+    await this.writeText(this.checkoutLocators.txtFirstName, firstName);
+    await this.writeText(this.checkoutLocators.txtLastName, lastName);
+    await this.writeText(this.checkoutLocators.txtZipCode, zipCode);
+    await this.clickElement(this.checkoutLocators.continueButton);
+  }
+
   async getCurrentSubTotal() {
     const currentSubtotal = await this.getElementText(this.checkoutLocators.subtotal);
 
@@ -16,14 +24,6 @@ export class CheckoutPage extends BasePage {
     } else {
       throw new Error("Subtotal value is null.");
     }
-  }
-
-  async proceedWithCheckout(firstName, lastName, zipCode) {
-    await this.clickElement(this.checkoutLocators.checkoutButton);
-    await this.writeText(this.checkoutLocators.txtFirstName, firstName);
-    await this.writeText(this.checkoutLocators.txtLastName, lastName);
-    await this.writeText(this.checkoutLocators.txtZipCode, zipCode);
-    await this.clickElement(this.checkoutLocators.continueButton);
   }
 
   async finishCheckout() {

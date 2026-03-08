@@ -1,14 +1,14 @@
 export class CheckoutLocators {
-  constructor(page) {
-    this.checkoutButton = page.getByTestId("checkout");
-    this.txtFirstName = page.getByTestId("first-name");
-    this.txtLastName = page.getByTestId("last-name");
-    this.txtZipCode = page.getByTestId("postal-code");
-    this.continueButton = page.getByTestId("continue");
-    this.subtotal = page.locator('[class="summary_subtotal_label"]');
-    this.finishButton = page.getByTestId("finish");
-    this.orderTitle = page.locator('[class="complete-header"]');
-    this.orderMessage = page.locator('[class="complete-text"]');
-    this.backToHomeButton = page.getByTestId("back-to-products");
+  constructor() {
+    this.checkoutButton = "[data-test='checkout']";
+    this.txtFirstName = "[data-test='first-name']";
+    this.txtLastName = "[data-test='last-name']";
+    this.txtZipCode = "[data-test='postal-code']";
+    this.continueButton = "[data-test='continue']";
+    this.subtotal = ".summary_subtotal_label";
+    this.finishButton = "[data-test='finish']";
+    this.orderTitle = ".complete-header";
+    this.orderMessage = ".complete-text";
+    this.backToHomeButton = "[data-test='back-to-products']";
   }
 }

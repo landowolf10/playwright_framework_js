@@ -52,7 +52,6 @@ export class BasePage {
   }
 
   async getAllElements(locator, timeout = TIMEOUTS.short) {
-
     const element = this.getLocator(locator);
 
     await element.first().waitFor({
@@ -61,7 +60,6 @@ export class BasePage {
     });
 
     return await element.all();
-
   }
 
   async writeText(locator, text, timeout = TIMEOUTS.short) {
@@ -95,7 +93,6 @@ export class BasePage {
   }
 
   async getElementText(locator, timeout = TIMEOUTS.short) {
-
     const element = this.getLocator(locator);
 
     await element.waitFor({
@@ -108,7 +105,6 @@ export class BasePage {
     logger.info(`Element text: ${text}`);
 
     return text ?? "";
-
   }
 
   async selectDropdownOption(locator, option, timeout = TIMEOUTS.short) {

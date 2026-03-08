@@ -6,8 +6,8 @@ Feature: Login functionality
     And I click the login button
     Then the login result should be "<result>"
 
-  Examples:
-    | userType  | result  |
-    | standard  | success |
-    | locked    | error   |
-    | problem   | error   |
+    Examples:
+      | userType  | result  |
+      | standard  | success |
+      | locked    | error   |
+      | problem   | error   |
