@@ -1,6 +1,6 @@
 export class CartLocators {
   constructor() {
-    this.Quantity = "[data-test='item-quantity']";
+    this.quantity = "[data-test='item-quantity']";
     this.itemDescription = "[data-test='inventory-item-desc']";
     this.removeButton = "button:has-text('Remove')";
     this.checkoutButton = "[data-test='checkout']";

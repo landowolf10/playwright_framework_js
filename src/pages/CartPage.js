@@ -7,9 +7,29 @@ export class CartPage extends BasePage {
     this.cartLocators = new CartLocators(page);
   }
 
-  async assertRemoveButtonEnabled() {
+  async assertButtonsAreEnabled() {
+    await this.waitForVisible(
+      this.cartLocators.itemDescription
+    );
+    await this.waitForVisible(
+      this.cartLocators.quantity
+    );
     await this.waitForEnabled(
       this.cartLocators.removeButton
     );
+    await this.waitForEnabled(
+      this.cartLocators.checkoutButton
+    );
+    await this.waitForEnabled(
+      this.cartLocators.continueButton
+    );
+  }
+
+  async clickRemoveButton() {
+    await this.clickElement(this.cartLocators.removeButton);
+  }
+
+  async verifyElementsRemoved() {
+    await this.waitForHidden(this.cartLocators.quantity);
   }
 }

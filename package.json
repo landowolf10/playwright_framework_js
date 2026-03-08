@@ -5,7 +5,7 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "clean:allure": "rimraf reports/allure-results reports/allure-report reports/cucumber-report.html reports/videos",
+    "clean:allure": "rimraf reports/allure-results reports/allure-report reports/cucumber-report.html reports/videos reports/screenshots reports/logs",
 
     "test:chromium": "cross-env BROWSER=chromium cucumber-js --parallel 3",
     "test:firefox": "cross-env BROWSER=firefox cucumber-js --parallel 3",
@@ -18,14 +18,8 @@
     "testAll:parallel": "npm-run-all clean:allure --parallel test:chromium test:firefox test:webkit",
     "testAll:parallel:headed": "npm-run-all clean:allure --parallel test:chromium test:firefox test:webkit:headed",
 
-    "test:feature": "npm-run-all clean:allure --parallel test:chromium test:firefox test:webkit --",
-    "test:feature:headed": "npm-run-all clean:allure --parallel test:chromium test:firefox test:webkit:headed --",
-
     "allure:generate": "allure generate reports/allure-results --clean -o reports/allure-report",
-
-    "allure:open": "allure open reports/allure-report",
-
-    "test:report": "npm-run-all test:parallel allure:generate allure:open"
+    "allure:open": "allure open reports/allure-report"
   },
   "keywords": [],
   "author": "",

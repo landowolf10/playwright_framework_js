@@ -16,7 +16,6 @@ export class BasePage {
   }
 
   async waitForVisible(locator, timeout = TIMEOUTS.short) {
-
     const element = this.getLocator(locator);
 
     logger.info(`Waiting for element visible: ${locator}`);
@@ -25,11 +24,9 @@ export class BasePage {
       state: "visible",
       timeout
     });
-
   }
 
   async waitForHidden(locator, timeout = TIMEOUTS.short) {
-
     const element = this.getLocator(locator);
 
     logger.info(`Waiting for element hidden: ${locator}`);
@@ -60,6 +57,17 @@ export class BasePage {
     });
 
     return await element.all();
+  }
+
+  async getElement(locator, timeout = TIMEOUTS.short) {
+    const element = this.getLocator(locator);
+
+    await element.first().waitFor({
+      state: "visible",
+      timeout
+    });
+
+    return await element;
   }
 
   async writeText(locator, text, timeout = TIMEOUTS.short) {
