@@ -30,6 +30,10 @@ jobs:
         continue-on-error: true
         id: run_tests
 
+      - name: Generate Allure Report
+        if: always()
+        run: npm run allure:generate
+
       - name: Set STATUS variable
         run: |
           if [ ${{ steps.run_tests.outcome }} == 'success' ]; then

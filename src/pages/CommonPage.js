@@ -2,8 +2,11 @@ import { BasePage } from "../helpers/BasePage.js";
 import { ENV } from "../config/env.config.js";
 import { LoginLocators } from "../locators/login_locators.js";
 import { DashboardLocators } from "../locators/dashboard_locators.js";
-import { assertVisible, assertEqualsTextString  } from "../helpers/assertions.js";
+import { assertVisible } from "../helpers/assertions.js";
 
+//CommonPage extends BasePage to use functionalities.
+//Contains common functions used through all the framework
+//to not repeat functionality.
 export class CommonPage extends BasePage {
   constructor(page) {
     super(page);
@@ -11,6 +14,7 @@ export class CommonPage extends BasePage {
     this.dashboardLocators = new DashboardLocators(page);
   }
 
+  //Navigates to the passed url.
   async navigateToSauceLab() {
     try {
       await this.page.goto(ENV.baseURL);
@@ -35,18 +39,16 @@ export class CommonPage extends BasePage {
   }
 
   async assertLoginSuccess() {
-  try {
+    try {
+      await assertVisible(this.page, this.dashboardLocators.cartIcon, "Cart Icon");
 
-    await assertVisible(this.page, this.dashboardLocators.cartIcon, "Cart Icon");
+    } catch (error) {
+      throw new Error(
+        `Login success verification failed. User was not redirected to the dashboard. ${error.message}`
+      );
 
-  } catch (error) {
-
-    throw new Error(
-      `Login success verification failed. User was not redirected to the dashboard. ${error.message}`
-    );
-
+    }
   }
-}
   async assertLoginFailed() {
     const errorMessageText = await this.getErrorMessageText();
 
@@ -54,14 +56,14 @@ export class CommonPage extends BasePage {
     await assertVisible(this.page, this.loginLocators.errorMessage, "Error message");
 
     if (errorMessageText !== "Epic sadface: Sorry, this user has been locked out.") {
-        throw new Error(
-          `Unexpected error message.
+      throw new Error(
+        `Unexpected error message.
       Expected: "Epic sadface: Sorry, this user has been locked out."
       Actual: "${errorMessageText}"`
-        );
-      }
+      );
+    }
   }
-  
+
   async getErrorMessageText() {
     const errorMessage = await this.getElementText(this.loginLocators.errorMessage);
     return errorMessage ?? "Error message not found.";

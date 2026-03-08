@@ -8,7 +8,7 @@ Given("I navigate to SauceLab", async function () {
 When("I enter {string} credentials", async function (userType) {
     try {
         const user = users[userType];
-        
+
         if (!user) {
             throw new Error(`User type "${userType}" not defined in test data`);
         }
@@ -32,5 +32,4 @@ Then("the login result should be {string}", async function (result) {
     } else {
         await this.commonPage.assertLoginFailed();
     }
-}
-);
+});
