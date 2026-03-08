@@ -48,7 +48,7 @@ jobs:
       - name: Prepare report folders
         if: always()
         run: |
-          TIMESTAMP=$(date +"%Y-%m-%d_%H-%M")
+          TIMESTAMP=$(date +"%Y-%m-%d_%H-%M-%S")
 
           # Crear carpeta historial
           mkdir -p "reports-history/$TIMESTAMP"
@@ -95,23 +95,23 @@ jobs:
             </style>
           </head>
           <body>
-            <h1>Historial de Playwright Reports</h1>
+            <h1>Playwwright reports history</h1>
             <table>
               <thead>
                 <tr>
                   <th>Run</th>
                   <th>Status</th>
-                  <th>Reporte</th>
+                  <th>Report</th>
                 </tr>
               </thead>
               <tbody>
           EOF
 
-          echo "<tr class='latest'><td>Último</td><td class='$STATUS'>$STATUS</td><td><a href='latest/index.html'>Ver reporte</a></td></tr>" >> $INDEX_FILE
+          echo "<tr class='latest'><td>Last report</td><td class='$STATUS'>$STATUS</td><td><a href='latest/index.html'>Open report</a></td></tr>" >> $INDEX_FILE
 
           for d in $(ls -d reports-history/*/ | grep -v 'latest' | sort -r); do
             NAME=$(basename $d)
-            echo "<tr><td>$NAME</td><td>-</td><td><a href='$NAME/index.html'>Ver reporte</a></td></tr>" >> $INDEX_FILE
+            echo "<tr><td>$NAME</td><td>-</td><td><a href='$NAME/index.html'>Open report</a></td></tr>" >> $INDEX_FILE
           done
 
           cat >> $INDEX_FILE <<'EOF'
