@@ -136,26 +136,17 @@ export class BasePage {
     await element.selectOption(option);
   }
 
+  //Scrolls to an specific element/locator.
   async scrollToElement(locator) {
-
     const element = this.getLocator(locator);
 
     logger.info(`Scrolling to element: ${locator}`);
 
     await element.scrollIntoViewIfNeeded();
-
   }
 
-  async waitForPageLoad(state = "load") {
-
-    logger.info(`Waiting for page load: ${state}`);
-
-    await this.page.waitForLoadState(state);
-
-  }
-
+  //Takes screenshot if something fails and saves a .png file.
   async takeScreenshot(name) {
-
     logger.info(`Taking screenshot: ${name}`);
 
     await this.page.screenshot({
