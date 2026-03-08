@@ -15,3 +15,5 @@ To execute:
 To generate Allure report:
 1. Generate report: npm run allure:generate
 2. To open report: npm run allure:open
+
+This framework is also integrated with CI/CD pipeline (Github Actions) where all the scenarios are execute after each push to main branch and generates and uploads the Allure report to Github Pages.
