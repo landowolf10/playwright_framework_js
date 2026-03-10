@@ -5,16 +5,22 @@ import dotenv from "dotenv";
 import { logger } from "../helpers/logger.js";
 import fs from "fs";
 import path from "path";
-import * as allure from "allure-js-commons";
 
 dotenv.config();
 setDefaultTimeout(60 * 1000);
 
 let browser;
 let browserName;
+let passedScenarios = 0;
+let failedScenarios = 0;
+let skippedScenarios = 0;
+let executionStart;
+
 const browsers = { chromium, firefox, webkit };
 
 BeforeAll(async () => {
+    executionStart = Date.now();
+
     //Creates logs folder.
     if (!fs.existsSync("reports/logs")) {
         fs.mkdirSync("reports/logs", { recursive: true });
@@ -50,12 +56,31 @@ BeforeAll(async () => {
 
 //Closes browser after all scenarios executed.
 AfterAll(async () => {
-    if (browser) await browser.close();
+    const executionTime = (Date.now() - executionStart) / 1000;
+
+    if (browser) 
+        await browser.close();
+
+    logger.info("=================================");
+    logger.info("TEST EXECUTION SUMMARY");
+    logger.info("=================================");
+
+    logger.info(`PASSED SCENARIOS : ${passedScenarios}`);
+    logger.info(`FAILED SCENARIOS : ${failedScenarios}`);
+    logger.info(`SKIPPED SCENARIOS: ${skippedScenarios}`);
+
+    const total = passedScenarios + failedScenarios + skippedScenarios;
+
+    logger.info(`TOTAL SCENARIOS  : ${total}`);
+    logger.info(`TOTAL EXECUTION TIME: ${executionTime} seconds`);
+    logger.info("=================================");
 });
 
 Before(async function (scenario) {
+    this.browserName = browserName;
+
     //Print logs before each scenario.
-    logger.info(`Starting scenario: ${scenario.pickle.name}`);
+    logger.info(`[${this.browserName}] Starting scenario: ${scenario.pickle.name}`);
 
     //Creates browser context for each scenario.
     this.context = await browser.newContext({
@@ -75,17 +100,34 @@ Before(async function (scenario) {
     this.loginPage = this.pageObjectManager.getLoginPage();
     this.dashboardPage = this.pageObjectManager.getDashBoardPage();
     this.cartPage = this.pageObjectManager.getCartPage();
-
-    allure.label("browser", browserName);
 });
 
 After(async function (scenario) {
+    if (scenario.result?.status === "PASSED") {
+        passedScenarios++;
+    }
+
+    if (scenario.result?.status === "FAILED") {
+        failedScenarios++;
+    }
+
+    if (scenario.result?.status === "SKIPPED") {
+        skippedScenarios++;
+    }
+
     const video = this.page.video();
 
     //Creates screenshots of each failed scenario after
     //all executions ends.
     if (scenario.result?.status === "FAILED") {
-        logger.error(`Scenario failed: ${scenario.pickle.name}`);
+        logger.error('Scenario failed');
+        logger.error(`Browser: ${this.browserName}`);
+        logger.error(`Scenario: ${scenario.pickle.name}`);
+
+        if (scenario.result?.exception) {
+            logger.error(`Error message: ${scenario.result.exception.message}`);
+            logger.error(`Stack trace: ${scenario.result.exception.stack}`);
+        }
 
         const dir = "reports/screenshots";
         if (!fs.existsSync(dir))

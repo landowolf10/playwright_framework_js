@@ -1,6 +1,6 @@
 import { expect } from "@playwright/test";
 import { TIMEOUTS } from "../config/constants.js";
-import { logger } from "../helpers/logger.js";
+//import { logger } from "../helpers/logger.js";
 
 export class BasePage {
   constructor(page) {
@@ -20,7 +20,7 @@ export class BasePage {
   async waitForVisible(locator, timeout = TIMEOUTS.short) {
     const element = this.getLocator(locator);
 
-    logger.info(`Waiting for element visible: ${locator}`);
+    //logger.info(`Waiting for element visible: ${locator}`);
 
     await element.waitFor({
       state: "visible",
@@ -32,7 +32,7 @@ export class BasePage {
   async waitForHidden(locator, timeout = TIMEOUTS.short) {
     const element = this.getLocator(locator);
 
-    logger.info(`Waiting for element hidden: ${locator}`);
+    //logger.info(`Waiting for element hidden: ${locator}`);
 
     await element.waitFor({
       state: "hidden",
@@ -45,7 +45,7 @@ export class BasePage {
   async waitForEnabled(locator, timeout = TIMEOUTS.short) {
     const element = this.getLocator(locator);
 
-    logger.info(`Waiting for element enabled: ${locator}`);
+    //logger.info(`Waiting for element enabled: ${locator}`);
 
     await expect(element).toBeEnabled({ timeout });
   }
@@ -78,7 +78,7 @@ export class BasePage {
   async writeText(locator, text, timeout = TIMEOUTS.short) {
     const element = this.getLocator(locator);
 
-    logger.info(`Writing text into element: ${locator}`);
+    //logger.info(`Writing text into element: ${locator}`);
 
     await element.waitFor({
       state: "visible",
@@ -93,7 +93,7 @@ export class BasePage {
   async clickElement(locator, timeout = TIMEOUTS.short) {
     const element = this.getLocator(locator);
 
-    logger.info(`Clicking element: ${locator}`);
+    //logger.info(`Clicking element: ${locator}`);
 
     await element.waitFor({
       state: "visible",
@@ -116,7 +116,7 @@ export class BasePage {
 
     const text = await element.textContent();
 
-    logger.info(`Element text: ${text}`);
+    //logger.info(`Element text: ${text}`);
 
     return text ?? "";
   }
@@ -126,7 +126,7 @@ export class BasePage {
   async selectDropdownOption(locator, option, timeout = TIMEOUTS.short) {
     const element = this.getLocator(locator);
 
-    logger.info(`Selecting dropdown option: ${option}`);
+    //logger.info(`Selecting dropdown option: ${option}`);
 
     await element.waitFor({
       state: "visible",
@@ -140,19 +140,18 @@ export class BasePage {
   async scrollToElement(locator) {
     const element = this.getLocator(locator);
 
-    logger.info(`Scrolling to element: ${locator}`);
+    //logger.info(`Scrolling to element: ${locator}`);
 
     await element.scrollIntoViewIfNeeded();
   }
 
   //Takes screenshot if something fails and saves a .png file.
   async takeScreenshot(name) {
-    logger.info(`Taking screenshot: ${name}`);
+    //logger.info(`Taking screenshot: ${name}`);
 
     await this.page.screenshot({
       path: `reports/screenshots/${name}.png`
     });
 
   }
-
 }

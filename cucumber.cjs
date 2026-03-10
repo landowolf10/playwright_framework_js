@@ -2,6 +2,7 @@ module.exports = {
   default: {
     paths: ["src/tests/**/*.feature"],
     require: ["src/hooks/**/*.js", "src/steps/**/*.js"],
+    parallel: 3,
     format: [
       "progress",
       "html:reports/cucumber-report.html",

@@ -1,6 +1,5 @@
 import { DashboardLocators } from "../locators/dashboard_locators.js";
 import { BasePage } from "../helpers/BasePage.js";
-import { logger } from "../helpers/logger.js";
 
 //DashboardPage extends BasePage to use functionalities.
 export class DashboardPage extends BasePage {
@@ -31,8 +30,6 @@ export class DashboardPage extends BasePage {
         price: price
       }); //Creates a list with all product names an its prices.
     }
-
-    logger.info("All products:", products);
 
     return products;
   }
