@@ -96,7 +96,6 @@ Before(async function (scenario) {
 
     //Instantiates all the pages before each exection
     //to no repeat initialization of objects in each step definition.
-    this.commonPage = this.pageObjectManager.getCommonPage();
     this.loginPage = this.pageObjectManager.getLoginPage();
     this.dashboardPage = this.pageObjectManager.getDashBoardPage();
     this.cartPage = this.pageObjectManager.getCartPage();

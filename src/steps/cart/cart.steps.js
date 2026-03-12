@@ -5,7 +5,7 @@ Then("finish cart validation", async function () {
     logger.info(`[${this.browserName}] Starting cart validation`);
 
     logger.info(`[${this.browserName}] Navigating to cart`);
-    await this.commonPage.goToCart();
+    await this.dashboardPage.goToCart();
 
     logger.info(`[${this.browserName}] Verifying cart buttons are enabled`);
     await this.cartPage.assertButtonsAreEnabled();

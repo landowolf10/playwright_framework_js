@@ -44,9 +44,6 @@ export class BasePage {
    //Waits until an element/locator is enabled given an amount of time.
   async waitForEnabled(locator, timeout = TIMEOUTS.short) {
     const element = this.getLocator(locator);
-
-    //logger.info(`Waiting for element enabled: ${locator}`);
-
     await expect(element).toBeEnabled({ timeout });
   }
 

@@ -4,7 +4,7 @@ import { logger } from "../../helpers/logger.js";
 
 Given("I navigate to SauceLab", async function () {
     logger.info(`[${this.browserName}] Navigating to SauceLab application`);
-    await this.commonPage.navigateToSauceLab();
+    await this.loginPage.navigateToSauceLab();
 });
 
 When("I enter {string} credentials", async function (userType) {
@@ -17,10 +17,7 @@ When("I enter {string} credentials", async function (userType) {
             throw new Error(`User type "${userType}" not defined in test data`);
         }
 
-        logger.info(`[${this.browserName}] Typing username: ${user.username}`);
         await this.loginPage.writeUsername(user.username);
-
-        logger.info(`[${this.browserName}] Typing password`);
         await this.loginPage.writePassword(user.password);
     } catch (error) {
         logger.error(`[${this.browserName}] Failed to enter credentials for "${userType}"`);
@@ -40,8 +37,8 @@ Then("the login result should be {string}", async function (result) {
      logger.info(`[${this.browserName}] Validating login result: expected ${result}`);
 
     if (result === "success") {
-        await this.commonPage.assertLoginSuccess();
+        await this.loginPage.assertLoginSuccess();
     } else {
-        await this.commonPage.assertLoginFailed();
+        await this.loginPage.assertLoginFailed();
     }
 });

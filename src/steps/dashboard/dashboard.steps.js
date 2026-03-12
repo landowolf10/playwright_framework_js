@@ -7,8 +7,6 @@ Then("all products should be displayed with valid name and price", async functio
 
     const products = await this.dashboardPage.getAllProducts();
 
-    logger.info(`[${this.browserName}] Total products found: ${products.length}`);
-
     expect(products.length, "No products were found on the dashboard").toBeGreaterThan(0);
 
     for (const product of products) {

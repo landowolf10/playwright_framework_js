@@ -1,5 +1,4 @@
 import { LoginPage } from "./LoginPage.js";
-import { CommonPage } from "./CommonPage.js";
 import { DashboardPage } from "./DashboardPage.js";
 import { CartPage } from "./CartPage.js";
 
@@ -20,7 +19,6 @@ export class PageObjectManager {
 
         //Private references to Page Object instances (lazy loaded)
         this._loginPage = null;
-        this._commonPage = null;
         this._dashboardPage = null;
         this._cartPage = null;
     }
@@ -32,14 +30,6 @@ export class PageObjectManager {
         }
 
         return this._loginPage;
-    }
-
-    getCommonPage() {
-        if (!this._commonPage) {
-            this._commonPage = new CommonPage(this.page);
-        }
-
-        return this._commonPage;
     }
 
     getDashBoardPage() {

@@ -1,15 +1,9 @@
-//Test data to use in the login, values comming from .env file.
-export const users = {
-  standard: { 
-    username: process.env.STANDARD_USER_USERNAME,
-    password: process.env.STANDARD_USER_PASSWORD
-  },
-  locked: { 
-    username: process.env.LOCKED_USER_USERNAME,
-    password: process.env.LOCKED_USER_PASSWORD
-  },
-  problem: { 
-    username: process.env.INVALID_USER_USERNAME,
-    password: process.env.INVALID_USER_PASSWORD
-  },
-};
+import fs from "fs";
+import path from "path";
+
+const filePath = path.resolve("src/config/test-data.json");
+
+const rawData = fs.readFileSync(filePath);
+const testData = JSON.parse(rawData);
+
+export const users = testData.users;
